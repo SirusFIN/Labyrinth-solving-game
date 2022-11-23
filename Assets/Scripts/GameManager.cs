@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Tilemap walls;
     private GameObject dataObject;
     private Maze maze;
+    public AudioSource soundtrack; 
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
         int seed = UnityEngine.Random.Range(0, 1000000);
         maze.Randomize(seed);
         maze.MazeToTilemap(walls, wall);
+        
     }
 
     public void ResetMaze()
