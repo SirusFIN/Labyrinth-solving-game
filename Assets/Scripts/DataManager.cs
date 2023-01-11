@@ -11,7 +11,14 @@ public class DataManager : MonoBehaviour
 
     private void Awake()
     {
-        Instanse = this;
-        DontDestroyOnLoad(gameObject);
+        if (Instanse != null && Instanse != this)
+        {
+            Destroy(gameObject);
+        }
+        else 
+        {
+            Instanse = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 }

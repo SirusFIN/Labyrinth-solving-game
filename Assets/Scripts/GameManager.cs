@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetMaze()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public GameObject Player1Text;
