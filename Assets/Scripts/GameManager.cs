@@ -11,19 +11,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int height;
     [SerializeField] private Tile wall;
     [SerializeField] private Tilemap walls;
-    private GameObject dataObject;
+    private DataManager dataObject;
     private Maze maze;
-    public AudioSource soundtrack; 
+    public AudioSource soundtrack;
+    public GameObject Player1Text;
+    public GameObject Player2Text;
 
     // Start is called before the first frame update
     void Start()
     {
-        dataObject = GameObject.Find("DataManager");
+        dataObject = GameObject.Find("DataManager").GetComponent<DataManager>();
         maze = new Maze(width, height);
         int seed = UnityEngine.Random.Range(0, 1000000);
         maze.Randomize(seed);
         maze.MazeToTilemap(walls, wall);
-        
+        UpdateScore();
     }
 
     public void ResetMaze()
@@ -31,24 +33,24 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
-    public GameObject Player1Text;
-    public GameObject Player2Text;
 
-    private float Player1Score;
-    private float Player2Score;
 
     public void Player1Scores()
     {
-        Player1Score += 1;
-        Player1Text.GetComponent<TextMeshProUGUI>().text = Player1Score.ToString();
         dataObject.GetComponent<DataManager>().Player1Score += 1;
+        UpdateScore();
     }
 
     public void Player2Scores()
     {
-        Player2Score += 1;
-        Player2Text.GetComponent<TextMeshProUGUI>().text = Player2Score.ToString();
         dataObject.GetComponent<DataManager>().Player2Score += 1;
+        UpdateScore();
+    }
+
+    public void UpdateScore()
+    {
+        Player1Text.GetComponent<TextMeshProUGUI>().text = dataObject.Player1Score.ToString();
+        Player2Text.GetComponent<TextMeshProUGUI>().text = dataObject.Player2Score.ToString();
     }
 
 }
